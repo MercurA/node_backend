@@ -24,6 +24,14 @@ exports = module.exports = (settings, handler) => {
   // if false deep search is deactivated
   app.use(express.urlencoded({ extended: true }));
 
+  // see C.O.R.S
+  app.use(function (req, res, next) {
+		res.header('Access-Control-Allow-Origin', '*');
+		res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+		next();
+	});
+
+
   // C.R.U.D. (create, read, update, delete)
   // here are the endpoints for resourses
   // call them to either get,post,update or delete a resourse
