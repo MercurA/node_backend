@@ -1,20 +1,19 @@
 # Resourses
 
-    DELETE http://localhost:3001/admin/delete/:id
+    POST http://localhost:3001/login
 
 - headers:
         
         {
             Content-Type: application/json,
-            Authorization: Bearer token,
-            email: string
         }
 
+- body:
 
-- params
+        Object exemple:
 
         {
-            id: string        
+            email: string
         }
 
 ### On Success
@@ -23,7 +22,7 @@
 
         {
             success: true,
-            data: object | array
+            data: token
         }
 
 ### on Failure

@@ -1,11 +1,13 @@
 # Resourses
 
-    PUT http://localhost:3001/update/:id
+    PUT http://localhost:3001/admin/update/:id
 
 - headers:
         
         {
-            Content-Type: application/json
+            Content-Type: application/json,
+            Authorization: Bearer token,
+            email: string
         }
 
 - params

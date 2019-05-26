@@ -1,11 +1,13 @@
 # Resourses
 
-    POST http://localhost:3001/add
+    POST http://localhost:3001/admin/add
 
 - headers:
         
         {
-            Content-Type: application/json
+            Content-Type: application/json,
+            Authorization: Bearer token,
+            email: string
         }
 
 - body:

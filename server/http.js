@@ -6,7 +6,7 @@ const logger = require("morgan");
 
 // we inject in the order of our import
 // see last comment on line: exports['@require'] = ['lib/settings',]
-exports = module.exports = (settings, handler) => {
+exports = module.exports = (settings, handler,loginHandler, auth) => {
   // i've imported the settings for port and host
   const PORT = settings.http.port;
   const HOST = settings.http.host;
@@ -27,7 +27,7 @@ exports = module.exports = (settings, handler) => {
   // see C.O.R.S
   app.use(function (req, res, next) {
 		res.header('Access-Control-Allow-Origin', '*');
-		res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+		res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization, email');
 		next();
 	});
 
@@ -35,10 +35,11 @@ exports = module.exports = (settings, handler) => {
   // C.R.U.D. (create, read, update, delete)
   // here are the endpoints for resourses
   // call them to either get,post,update or delete a resourse
-  app.post("/add", handler.addData);
-  app.get("/get", handler.getData);
-  app.put("/update/:id", handler.updateData);
-  app.delete("/delete/:id", handler.removeData);
+  app.post('/login',loginHandler.login);
+  app.post("/admin/add",auth.verify, handler.addData);
+  app.get("/admin/get",auth.verify, handler.getData);
+  app.put("/admin/update/:id",auth.verify, handler.updateData);
+  app.delete("/admin/delete/:id",auth.verify, handler.removeData);
 
   // here we have the only functions that we can directly access in this module
   // a module needs to return something in order to be accessed
@@ -55,4 +56,4 @@ exports["@singleton"] = true;
 // we handle asyncronicity
 exports["@async"] = false;
 // imports all that we need in this module
-exports["@require"] = ["lib/settings", "handler/dataHandler"];
+exports["@require"] = ["lib/settings", "handler/dataHandler", "handler/loginHandler", "lib/authentication"];

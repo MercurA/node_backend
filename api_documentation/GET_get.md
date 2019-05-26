@@ -1,7 +1,14 @@
 # Resourses
 
-    GET http://localhost:3001/get
+    GET http://localhost:3001/admin/get
 
+
+- headers
+
+        {
+            Authorization: Bearer token,
+            email: string
+        }
 
 ### On Success
 
